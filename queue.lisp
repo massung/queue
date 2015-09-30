@@ -18,7 +18,7 @@
 ;;;;
 
 (defpackage :queue
-  (:use :cl :heap)
+  (:use :cl)
   (:export
    #:make-queue
 
