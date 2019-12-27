@@ -24,7 +24,8 @@
 
    ;; push/pop elements on/off the queue
    #:queue-push
-   #:queue-pop))
+   #:queue-pop
+   #:queue-list))
 
 (in-package :queue)
 
@@ -53,7 +54,7 @@
   "Push a value onto the tail of the queue."
   (with-slots (tail)
       q
-    (first (setf tail (cdr (rplacd tail (list x)))))))
+    (car (setf tail (cdr (rplacd tail (list x)))))))
 
 ;;; ----------------------------------------------------
 
@@ -62,4 +63,10 @@
   (with-slots (head)
       q
     (when (rest head)
-      (first (setf head (rest head))))))
+      (values (car (setf head (cdr head))) t))))
+
+;;; ----------------------------------------------------
+
+(defun queue-list (q)
+  "Return the list of elements in the queue; does not alter the queue."
+  (rest (queue-head q)))
